@@ -5,15 +5,212 @@ using UnityEngine;
 /// </summary>
 public class PlayerController : MonoBehaviour
 {
+    InputHandler inputhandler;
+    Rigidbody2D rb;
+
+    public Vector3 movement; //좌우 움직임 결정
+    public Vector3 rotatemovement; //회전 움직임 결정
+
+    public LayerMask groundlayer;  //레이어를 구분하기 위한 변수,inspector창에서 Ground레이어 삽입
+    public GameObject boxprefab; //inspector창에서 clonebox 프리펩 삽입
+    public GameObject player; //inspector창에서 player 프리펩 삽입(지금은 테스트용 플레이어)근데 이거 필요한..가?
+
+
+    public float moveSpeed = 5f;
+    public float power = 5f;
+    public float rotateSpeed = 100f;
+
+
+    private float airtime = 0f; //체공시간 측정용 변수
+    private Vector3 MyPos; //플레이어의 현재 위치
+    public bool isGround = true; //땅에 닿고 있는 판정인지의 여부
+
+
+    //플레이어 상태
+    public enum PlayerState {
+        Idle,
+        Leviating,
+        Flip,
+        Death
+    }
+
+    public PlayerState currentstate { get; private set; } = PlayerState.Idle;
+
+    //상태변화 함수
+    public void ChangeState(PlayerState newState) {
+        currentstate = newState;
+        Debug.Log($"Game State changed to : {currentstate}");
+    }
+
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
+    void Awake()
     {
-        
+        inputhandler = GameObject.Find("InputHandler").GetComponent<InputHandler>();
+        rb = GetComponent<Rigidbody2D>();
     }
+
+    // Update is called once per frame
+    //InputHandler 연결, update마다 move()실행
+    void Update() 
+    {    
+        CheckGround(); //땅에 닿는 판정인지 확인
+
+        //공중에 떠 있는 시간 계산(jump와 flip 동시 실행 방지)
+        if (currentstate == PlayerState.Leviating) {
+                airtime += Time.deltaTime;
+        } else {
+            airtime = 0f;
+        }
+
+        //플레이어 상태에 따른 동작
+        switch(currentstate) {
+        
+            case PlayerState.Idle:
+            Move();
+            break;
+
+            case PlayerState.Leviating:
+            Move();
+            break;
+
+            case PlayerState.Flip:
+            Rotate();
+            break;
+
+            case PlayerState.Death:
+            break;
+
+        }
+
+        //flip 상태일 때 플레이어 위치 고정
+        if(currentstate == PlayerState.Flip) {
+            transform.position = MyPos; //플레이어 위치 고정
+        } else {
+            MyPos = transform.position; //플레이어 위치 추적
+        }
+
+        //flip 상태일 때 플레이어 회전하다가 충돌이 일어났을 때 물리적 회전 속도 제한
+        if (currentstate == PlayerState.Flip) {
+            GetComponent<Rigidbody2D>().angularVelocity = 0f;
+        }
+
+    }
+
+
+
+
+
+    //jump 함수, Leviating으로 상태 변화
+    public void Jump(float power) { 
+        GetComponent<Rigidbody2D>().AddForce(new Vector3(0, power,0), ForceMode2D.Impulse);
+        ChangeState(PlayerState.Leviating);
+
+    }
+
+    //move 함수
+    private void Move() { 
+        float xPos = movement.x * moveSpeed * Time.deltaTime;
+        transform.position += new Vector3(xPos,0f,0f);
+    }
+
+    //flip 함수, Flip으로 상태 변화
+    public void Flip() {
+        //체공시간 너무 적으면 flip 변환 불가(jump와 flip 동시 실행방지)
+        if (airtime < 0.2f) return;
+        //회전 중에 flip상태가 걸리면 플레이어의 회전 속도 제한
+        if (rb != null) {
+            rb.angularVelocity = 0f;
+        } 
+        ChangeState(PlayerState.Flip);
+    }
+
+    //rotate 함수
+    private void Rotate() {
+        float RotateAmount = - rotatemovement.x * rotateSpeed * Time.deltaTime;
+        transform.Rotate(0,0,RotateAmount);
+    }
+
+    //MakeBrick 함수
+    public void MakeBrickAndRespawn() {
+        if(boxprefab != null) {
+            Instantiate(boxprefab,transform.position,transform.rotation); //박스 프리펩
+        }
+        Destroy(gameObject); //플레이어 제거
+        Respawn(); //리스폰
+    }
+
+    //respawn 함수, Idle로 상태 변화
+    //GameManager에 리스폰 요청
+    private void Respawn() { 
+        GameManager.Instance.RequestRespawn();
+        ChangeState(PlayerState.Idle);
+    }
+
+
+
+
+    //플레이어가 가시에 닿을 시 플레이어제거, Death로 상태 변화, 리스폰(플레이어 제거보다 먼저호출)
+    private void OnCollisionEnter2D(Collision2D collision) {
+
+        if(collision.gameObject.CompareTag("Spike")) { 
+            ChangeState(PlayerState.Death);
+            Respawn();
+            Destroy(gameObject);
+        }
+    }
+
+    //플레이어가 땅에서 떨어지면 Leviating으로 상태 변화(이 함수는 필요없나?)
+    private void OnCollisionExit2D(Collision2D collision) {
+        if(collision.gameObject.CompareTag("Ground")) {
+            ChangeState(PlayerState.Leviating);
+            isGround = false;
+        }
+    }
+
+    //땅에 닿는 판정인지 확인
+    //Raycast 사용하여 player의 수직 아래로 레이어 발사, 물체에 닿으면 땅에 닿는다 판정
+    //닿은 물체의 Layer가 Ground일 때만 판정, 판정하려는 물체의 Layer 확인!!
+    private void CheckGround() { 
+        float distance = DistanceToFoot()+0.1f;
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector3.down, distance, groundlayer);
+
+        if (hit.collider != null) {
+            
+            isGround = true;
+            //땅에 닿으면 Idle로 상태변경
+            if (currentstate == PlayerState.Leviating) { 
+                ChangeState(PlayerState.Idle);
+            }
+        }
+        else {
+            //땅에서 떨어지면 Leviating으로 상태변경
+            isGround = false;
+            if (currentstate == PlayerState.Idle) { 
+                ChangeState(PlayerState.Leviating);
+            }
+        }
+        
+        // 에디터 뷰에서 레이저가 나가는지 확인용
+        Debug.DrawRay(transform.position, Vector3.down * distance, Color.red);
+    }
+
+    // 중심점에서 발바닥까지의 거리
+    float DistanceToFoot()
+    {
+        Collider2D col = GetComponent<Collider2D>();
+        
+        float distance = col.bounds.extents.y; 
+        return distance;
+
+    }
+
+    
 }
+

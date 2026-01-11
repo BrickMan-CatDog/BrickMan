@@ -344,8 +344,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5103503411967823329, guid: 6fb5683085a0bec428d344a712316bd0, type: 3}
+      propertyPath: drag
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5103503411967823329, guid: 6fb5683085a0bec428d344a712316bd0, type: 3}
       propertyPath: power
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5103503411967823329, guid: 6fb5683085a0bec428d344a712316bd0, type: 3}
+      propertyPath: maxSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5103503411967823329, guid: 6fb5683085a0bec428d344a712316bd0, type: 3}
+      propertyPath: moveForce
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 5103503411967823329, guid: 6fb5683085a0bec428d344a712316bd0, type: 3}
       propertyPath: groundlayer.m_Bits

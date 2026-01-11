@@ -113,7 +113,8 @@ MonoBehaviour:
     m_Bits: 64
   boxprefab: {fileID: 815261855891981148, guid: a7bd8b7c1bb936647a91e614f68e8eb9, type: 3}
   player: {fileID: 6217605777061047946}
-  moveSpeed: 5
+  moveForce: 30
+  maxSpeed: 3
   power: 5
   rotateSpeed: 100
   isGround: 1

@@ -16,7 +16,8 @@ public class PlayerController : MonoBehaviour
     public GameObject player; //inspector창에서 player 프리펩 삽입(지금은 테스트용 플레이어)근데 이거 필요한..가?
 
 
-    public float moveSpeed = 5f;
+    public float moveForce = 30f;
+    public float maxSpeed = 3f; //최대 속도
     public float power = 5f;
     public float rotateSpeed = 100f;
 
@@ -58,7 +59,7 @@ public class PlayerController : MonoBehaviour
 
     // Update is called once per frame
     //InputHandler 연결, update마다 move()실행
-    void Update() 
+    void FixedUpdate() 
     {    
         CheckGround(); //땅에 닿는 판정인지 확인
 
@@ -81,6 +82,8 @@ public class PlayerController : MonoBehaviour
             break;
 
             case PlayerState.Flip:
+            rb.linearVelocity = Vector3.zero; 
+            rb.angularVelocity = 0f;
             Rotate();
             break;
 
@@ -97,9 +100,20 @@ public class PlayerController : MonoBehaviour
         }
 
         //flip 상태일 때 플레이어 회전하다가 충돌이 일어났을 때 물리적 회전 속도 제한
-        if (currentstate == PlayerState.Flip) {
-            GetComponent<Rigidbody2D>().angularVelocity = 0f;
+    if (currentstate == PlayerState.Flip) {
+        GetComponent<Rigidbody2D>().angularVelocity = 0f;
+    }
+
+        //벽에 붙었을때 안내려가는 경우 수정 (지워야 한다면 지울 것)
+        if (!isGround && Mathf.Abs(movement.x) > 0.1f)
+        {
+            if (rb.linearVelocity.y > -1f && rb.linearVelocity.y < 1f)
+            {
+                // 중력이 더 잘 작동하도록 살짝 아래로 힘을 주거나 마찰을 무시함
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, -1f);
+            }
         }
+
 
     }
 
@@ -116,8 +130,16 @@ public class PlayerController : MonoBehaviour
 
     //move 함수
     private void Move() { 
-        float xPos = movement.x * moveSpeed * Time.deltaTime;
-        transform.position += new Vector3(xPos,0f,0f);
+        if (Mathf.Abs(movement.x) > 0) {
+            rb.AddForce(new Vector2(movement.x * moveForce, 0f), ForceMode2D.Force);
+        }
+
+        // 최대 속도 제한 (속도가 너무 무한정 빨라지는 것 방지)
+        if (Mathf.Abs(rb.linearVelocity.x) > maxSpeed) {
+            float limitedX = Mathf.Clamp(rb.linearVelocity.x, -maxSpeed, maxSpeed);
+            rb.linearVelocity = new Vector2(limitedX, rb.linearVelocity.y);
+        }
+
     }
 
     //flip 함수, Flip으로 상태 변화

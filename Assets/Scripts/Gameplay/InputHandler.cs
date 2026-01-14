@@ -10,11 +10,10 @@ public class InputHandler : MonoBehaviour
 
     //move 입력받고 Flip상태가 아닐때만 값 넘겨주기
     public void OnMove(InputAction.CallbackContext context) { 
-        if(playercontroller.currentstate != PlayerController.PlayerState.Flip) {
+	    if(playercontroller.currentstate != PlayerController.PlayerState.Flip) {
             Debug.Log("move to" + context.ReadValue<Vector3>());
             playercontroller.movement = context.ReadValue<Vector3>();
         }
-
     }
 
     //jump 입력받고 땅에 닿았을 때만 jump 실행

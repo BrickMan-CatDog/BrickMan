@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections;
-using Unity.Cinemachine;
 
 /// <summary>
 /// 게임의 전체 상태(로비, 인게임, 일시정지) 관리
@@ -42,15 +41,7 @@ public class GameManager : Singleton<GameManager>
 
         // 새 플레이어 생성
         GameObject newPlayer = Instantiate(playerPrefab, spawnPosition, Quaternion.identity);
-        newPlayer.tag = "Player";
-
-        //카메라 로직
-        var vcam = GameObject.FindAnyObjectByType<CinemachineCamera>();
-        if (vcam != null)
-        {
-            // 플레이어가 리스폰 하면 새로운 플레이어를 따라가도록
-            vcam.Target.TrackingTarget = newPlayer.transform; 
-        }
+        newPlayer.tag = "Player"; 
         
         Debug.Log("Player Respawned");
     }

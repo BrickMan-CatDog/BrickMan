@@ -67,5 +67,5 @@
         "*.sln": "*.csproj",
         "*.slnx": "*.csproj"
     },
-    "dotnet.defaultSolution": "Brick-Man.slnx"
+    "dotnet.defaultSolution": "BrickMan.slnx"
 }

@@ -524,11 +524,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!4 &244998198 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1447081851637358290, guid: 6fb5683085a0bec428d344a712316bd0, type: 3}
-  m_PrefabInstance: {fileID: 606675942}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &247076218
 GameObject:
   m_ObjectHideFlags: 0
@@ -1757,67 +1752,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!1001 &606675942
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1447081851637358290, guid: 6fb5683085a0bec428d344a712316bd0, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.52893
-      objectReference: {fileID: 0}
-    - target: {fileID: 1447081851637358290, guid: 6fb5683085a0bec428d344a712316bd0, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 3.59908
-      objectReference: {fileID: 0}
-    - target: {fileID: 1447081851637358290, guid: 6fb5683085a0bec428d344a712316bd0, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1447081851637358290, guid: 6fb5683085a0bec428d344a712316bd0, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1447081851637358290, guid: 6fb5683085a0bec428d344a712316bd0, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1447081851637358290, guid: 6fb5683085a0bec428d344a712316bd0, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1447081851637358290, guid: 6fb5683085a0bec428d344a712316bd0, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1447081851637358290, guid: 6fb5683085a0bec428d344a712316bd0, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1447081851637358290, guid: 6fb5683085a0bec428d344a712316bd0, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1447081851637358290, guid: 6fb5683085a0bec428d344a712316bd0, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6217605777061047946, guid: 6fb5683085a0bec428d344a712316bd0, type: 3}
-      propertyPath: m_Name
-      value: testPlayerBox
-      objectReference: {fileID: 0}
-    - target: {fileID: 8352965571321288359, guid: 6fb5683085a0bec428d344a712316bd0, type: 3}
-      propertyPath: m_SortingOrder
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 6fb5683085a0bec428d344a712316bd0, type: 3}
 --- !u!1 &722512662
 GameObject:
   m_ObjectHideFlags: 0
@@ -2424,12 +2358,12 @@ MonoBehaviour:
   m_StreamingVersion: 20241001
   m_LegacyPriority: 0
   Target:
-    TrackingTarget: {fileID: 244998198}
+    TrackingTarget: {fileID: 0}
     LookAtTarget: {fileID: 0}
     CustomLookAtTarget: 0
   Lens:
     FieldOfView: 60
-    OrthographicSize: 7
+    OrthographicSize: 5
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -2757,7 +2691,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26ad3270c51154d449550208a61afc60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelManager
-  playerPrefab: {fileID: 6217605777061047946, guid: 6fb5683085a0bec428d344a712316bd0, type: 3}
+  playerPrefab: {fileID: 6217605777061047946, guid: 1da97395e19ee3c45b434cd459dc8085, type: 3}
   startPosition: {x: -0.5, y: 3.5, z: 0}
   requiredStars: 3
 --- !u!4 &821362325
@@ -3957,7 +3891,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 7
+  orthographic size: 5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -4353,6 +4287,10 @@ PrefabInstance:
     - target: {fileID: 1491717915784396034, guid: a95e7695a8572e04e83cd476e40a5444, type: 3}
       propertyPath: m_Name
       value: cutter
+      objectReference: {fileID: 0}
+    - target: {fileID: 1491717915784396034, guid: a95e7695a8572e04e83cd476e40a5444, type: 3}
+      propertyPath: m_TagString
+      value: Spike
       objectReference: {fileID: 0}
     - target: {fileID: 4206891726408368671, guid: a95e7695a8572e04e83cd476e40a5444, type: 3}
       propertyPath: waitTime
@@ -7838,5 +7776,4 @@ SceneRoots:
   - {fileID: 1007541564}
   - {fileID: 343941292}
   - {fileID: 768498405}
-  - {fileID: 606675942}
   - {fileID: 821362325}

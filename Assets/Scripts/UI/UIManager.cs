@@ -7,4 +7,15 @@ using UnityEngine;
 public class UIManager : Singleton<UIManager>
 {
     
+
+    // 테스트용 샘플 메서드
+    public void ShowView(View view)
+    {
+        view.Show();
+    }
+
+    public void HideView(View view)
+    {
+        view.Hide();
+    }
 }

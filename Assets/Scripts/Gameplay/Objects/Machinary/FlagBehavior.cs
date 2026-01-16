@@ -11,12 +11,6 @@ public class FlagBehavior : MonoBehaviour
     {
         flagCollider = gameObject.GetComponent<Collider2D>();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -24,8 +18,7 @@ public class FlagBehavior : MonoBehaviour
         {
             Debug.Log("깃발 닿음");
 
-            // 리스폰 포지션 설정 처리
-            
+            LevelManager.Instance.SetSpawnPoint(transform.position);
             flagCollider.enabled = false;
         }
     }

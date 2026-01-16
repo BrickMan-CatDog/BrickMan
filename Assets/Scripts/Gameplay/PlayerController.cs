@@ -11,7 +11,8 @@ public class PlayerController : MonoBehaviour
     public Vector3 movement; //좌우 움직임 결정
     public Vector3 rotatemovement; //회전 움직임 결정
 
-    public LayerMask groundlayer;  //레이어를 구분하기 위한 변수,inspector창에서 Ground레이어 삽입
+    public LayerMask groundlayer;  //레이어를 구분하기 위한 변수,inspector창에서 Ground레이어,box레이어 삽입
+    // public LayerMask walllayer; //밀리지 않는 레이어 삽입 Ground레이어 삽입
     public GameObject boxprefab; //inspector창에서 clonebox 프리펩 삽입
     public GameObject player; //inspector창에서 player 프리펩 삽입(지금은 테스트용 플레이어)근데 이거 필요한..가?
 
@@ -62,7 +63,9 @@ public class PlayerController : MonoBehaviour
     //InputHandler 연결, update마다 move()실행
     void FixedUpdate() 
     {    
-        CheckGround(); //땅에 닿는 판정인지 확인
+        if(currentstate != PlayerState.Flip) { //Flip 상태에서 회전했을 때 땅에 닿으면 idle로 바뀌는 문제 수정
+            CheckGround(); //땅에 닿는 판정인지 확인
+        }
 
         //공중에 떠 있는 시간 계산(jump와 flip 동시 실행 방지)
         if (currentstate == PlayerState.Leviating) {
@@ -101,20 +104,9 @@ public class PlayerController : MonoBehaviour
         }
 
         //flip 상태일 때 플레이어 회전하다가 충돌이 일어났을 때 물리적 회전 속도 제한
-    if (currentstate == PlayerState.Flip) {
-        GetComponent<Rigidbody2D>().angularVelocity = 0f;
-    }
-
-        //벽에 붙었을때 안내려가는 경우 수정 (지워야 한다면 지울 것)
-        if (!isGround && Mathf.Abs(movement.x) > 0.1f)
-        {
-            if (rb.linearVelocity.y > -1f && rb.linearVelocity.y < 1f)
-            {
-                // 중력이 더 잘 작동하도록 살짝 아래로 힘을 주거나 마찰을 무시함
-                rb.linearVelocity = new Vector2(rb.linearVelocity.x, -1f);
-            }
+        if (currentstate == PlayerState.Flip) {
+            GetComponent<Rigidbody2D>().angularVelocity = 0f;
         }
-
 
     }
 
@@ -131,8 +123,10 @@ public class PlayerController : MonoBehaviour
 
     //move 함수
     private void Move() { 
-        if (Mathf.Abs(movement.x) > 0) {
-            rb.AddForce(new Vector2(movement.x * moveForce, 0f), ForceMode2D.Force);
+        float moveInput = movement.x;
+        
+        if (Mathf.Abs(moveInput) > 0) {
+            rb.AddForce(new Vector2(moveInput * moveForce, 0f), ForceMode2D.Force);
         }
 
         // 최대 속도 제한 (속도가 너무 무한정 빨라지는 것 방지)
@@ -170,14 +164,11 @@ public class PlayerController : MonoBehaviour
     }
 
     //respawn 함수, Idle로 상태 변화
-    //GameManager에 리스폰 요청
+    //LevelManager에 리스폰 요청
     private void Respawn() { 
-        GameManager.Instance.RequestRespawn();
+        LevelManager.Instance.RequestRespawn();
         ChangeState(PlayerState.Idle);
     }
-
-
-
 
     //플레이어가 가시에 닿을 시 플레이어제거, Death로 상태 변화, 리스폰(플레이어 제거보다 먼저호출)
     private void OnCollisionEnter2D(Collision2D collision) {
@@ -201,7 +192,7 @@ public class PlayerController : MonoBehaviour
     
     private void CheckGround() { 
         Collider2D col = GetComponent<Collider2D>();
-        Vector2 boxSize = new Vector2(col.bounds.size.x * 0.9f, 0.1f);
+        Vector2 boxSize = new Vector2(col.bounds.size.x, 0.1f);
         
         // 박스를 쏠 위치 (발바닥 지점) 및 거리
         Vector2 castOrigin = (Vector2)transform.position + Vector2.down * (col.bounds.extents.y);
@@ -224,6 +215,7 @@ public class PlayerController : MonoBehaviour
                 ChangeState(PlayerState.Leviating);
             }
         }
+    }
         
         
         // float distance = DistanceToFoot()+0.1f;
@@ -249,7 +241,6 @@ public class PlayerController : MonoBehaviour
         // Debug.DrawRay(transform.position, Vector3.down * distance, Color.red);
         //Raycast 사용하여 player의 수직 아래로 레이어 발사, 물체에 닿으면 땅에 닿는다 판정
         //닿은 물체의 Layer가 Ground일 때만 판정, 판정하려는 물체의 Layer 확인!!
-    }
 
     // 중심점에서 발바닥까지의 거리
     float DistanceToFoot()

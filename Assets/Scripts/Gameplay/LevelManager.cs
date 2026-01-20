@@ -73,7 +73,7 @@ public class LevelManager : Singleton<LevelManager>
         if (vcam != null)
         {
             // 플레이어가 리스폰 하면 새로운 플레이어를 따라가도록
-            vcam.Target.TrackingTarget = newPlayer.transform;
+            vcam.Target.TrackingTarget = newPlayer.transform; 
         }
     }
 
@@ -101,13 +101,11 @@ public class LevelManager : Singleton<LevelManager>
     /// <summary>
     /// 별 수집 처리, 레벨 완료 체크
     /// </summary>
-    public void CollectStar()
-    {
+    public void CollectStar() {
         Debug.Log($"Stars Collected: {collectedStars}/{requiredStars}");
 
         collectedStars++;
-        if (collectedStars >= requiredStars)
-        {
+        if (collectedStars >= requiredStars) {
             Debug.Log("Level Complete!");
 
             // 레벨 완료 처리

@@ -83,7 +83,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -5
+  m_SortingOrder: 3
   m_MaskInteraction: 0
   m_Sprite: {fileID: 5443222087807151164, guid: eaa54aa533456634f991727aa2fecc30, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -107,6 +107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f4d80a13109a1042928cb53640fe3ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
+  leviatingLockTime: 0.15
   movement: {x: 0, y: 0, z: 0}
   rotatemovement: {x: 0, y: 0, z: 0}
   groundlayer:
@@ -118,7 +119,9 @@ MonoBehaviour:
   maxSpeed: 3
   power: 5
   rotateSpeed: 100
+  jumpMultiplier: 1
   isGround: 1
+  hookedHook: {fileID: 0}
 --- !u!61 &7958843417783261949
 BoxCollider2D:
   m_ObjectHideFlags: 0

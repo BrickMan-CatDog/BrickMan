@@ -142,4 +142,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 147fb8cbacd02584bace2b3578ad72da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BalloonBehavior
-  availableTime: 3
+  availableTime: 1.5
+  power: 12

@@ -137,8 +137,8 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 8
-      height: 32
+      width: 64
+      height: 64
     spriteID: 58e8ee0662407cc479a8da19701c8f2a
     spriteBone: []
     spriteOutline: []
@@ -167,10 +167,10 @@ ScriptedImporter:
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
-        x: 28
+        x: 0
         y: 0
-        width: 8
-        height: 32
+        width: 64
+        height: 64
       spriteId: 58e8ee0662407cc479a8da19701c8f2a
     linkedCells: []
     tileCells: []
@@ -182,4 +182,4 @@ ScriptedImporter:
   secondarySpriteTextures: []
   spritePackingTag: 
   canvasSize: {x: 64, y: 64}
-  previousTextureSize: {x: 32, y: 64}
+  previousTextureSize: {x: 128, y: 128}

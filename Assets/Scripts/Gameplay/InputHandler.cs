@@ -28,15 +28,14 @@ public class InputHandler : MonoBehaviour
     //jump 입력받고 땅에 닿았을 때만 jump 실행
     public void OnJump(InputAction.CallbackContext context)
     { 
-        if (playercontroller.currentstate == PlayerController.PlayerState.OnHook)
+        if (context.performed)
         {
-            playercontroller.hookedHook.GetOffHook();
-            return;
-        }
+            if (playercontroller.currentstate == PlayerController.PlayerState.OnHook)
+            {
+                playercontroller.hookedHook.GetOffHook();
+                return;
+            }
 
-        if (context.performed
-            && playercontroller.currentstate != PlayerController.PlayerState.OnHook)
-        {
             if (playercontroller.isGround)
             {
                 Debug.Log("Jump");

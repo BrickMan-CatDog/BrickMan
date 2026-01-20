@@ -6,8 +6,9 @@ public class BalloonBehavior : MonoBehaviour
 {
     private Collider2D balloonCollider;
     private GameObject player = null;
-    [SerializeField] private float availableTime = 3f;
-    [SerializeField] private float power = 0.01f;
+    [SerializeField] private float availableTime = 1.5f;
+    [SerializeField] private float power = 0.07f;
+    [SerializeField] private float slowRate = 5f;
     
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -27,8 +28,8 @@ public class BalloonBehavior : MonoBehaviour
             transform.SetParent(player.transform);
             transform.localPosition = new Vector3(0, 1f, 0);
 
-            player.GetComponent<PlayerController>().GetBalloon(power);
-            StartCoroutine(WaitForPop());
+            player.GetComponent<PlayerController>().GetBalloon(power, slowRate);
+            StartCoroutine("WaitForPop");
         }
     }
 
@@ -38,7 +39,8 @@ public class BalloonBehavior : MonoBehaviour
 
         if (player != null)
         {
-            player.GetComponent<PlayerController>().PopBalloon();
+            Debug.Log("풍선 터짐");
+            player.GetComponent<PlayerController>().PopBalloon(slowRate);
         }
         Destroy(gameObject);
     }

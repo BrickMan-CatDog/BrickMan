@@ -32,7 +32,8 @@ public class PlayerController : MonoBehaviour
     public bool isGround = true; //땅에 닿고 있는 판정인지의 여부
     private float leviatingEnterTime;
 
-    [HideInInspector] public HookBehavior hookedHook = null;
+    // [HideInInspector] public HookBehavior hookedHook = null;
+    public HookBehavior hookedHook = null;
 
 
     //플레이어 상태
@@ -150,6 +151,7 @@ public class PlayerController : MonoBehaviour
     //jump 함수, Leviating으로 상태 변화
     public void Jump(float power)
     {
+        Debug.Log("Jump 실행");
         GetComponent<Rigidbody2D>().AddForce(new Vector3(0, power * jumpMultiplier, 0), ForceMode2D.Impulse);
         ChangeState(PlayerState.Leviating);
     }
@@ -170,9 +172,15 @@ public class PlayerController : MonoBehaviour
         if (!isGround)
         { ChangeState(PlayerState.Leviating); }
         // move + jump => PlayerState = Leviating
+        
+        if (Mathf.Abs(rb.linearVelocity.x) > maxSpeed && rb.linearVelocity.x * moveInput > 0)
+        {
+            return;
+        }
 
         if (currentstate == PlayerState.Leviating)
         {
+
             if (Mathf.Abs(moveInput) > 0)
             {
                 rb.AddForce(new Vector2(moveInput * moveForce, 0f), ForceMode2D.Force);
@@ -200,11 +208,11 @@ public class PlayerController : MonoBehaviour
         }
 
         // 최대 속도 제한 (속도가 너무 무한정 빨라지는 것 방지)
-        if (Mathf.Abs(rb.linearVelocity.x) > maxSpeed)
-        {
-            float limitedX = Mathf.Clamp(rb.linearVelocity.x, -maxSpeed, maxSpeed);
-            rb.linearVelocity = new Vector2(limitedX, rb.linearVelocity.y);
-        }
+        // if (Mathf.Abs(rb.linearVelocity.x) > maxSpeed)
+        // {
+        //     float limitedX = Mathf.Clamp(rb.linearVelocity.x, -maxSpeed, maxSpeed);
+        //     rb.linearVelocity = new Vector2(limitedX, rb.linearVelocity.y);
+        // }
 
     }
 
@@ -339,16 +347,23 @@ public class PlayerController : MonoBehaviour
     }
 
     Coroutine balloonCoroutine;
-    public void GetBalloon(float power)
+    public void GetBalloon(float power, float slowRate)
     {
-        moveForce /= 10f;
+        moveForce /= slowRate;
+        if (balloonCoroutine != null)
+        {
+            StopCoroutine(balloonCoroutine);
+        }
         balloonCoroutine = StartCoroutine(BalloonMovement(power));
     }
 
-    public void PopBalloon()
+    public void PopBalloon(float slowRate)
     {
-        moveForce *= 10f;
-        StopCoroutine(balloonCoroutine);
+        moveForce *= slowRate;
+        if (balloonCoroutine != null)
+        {
+            StopCoroutine(balloonCoroutine);
+        }
         balloonCoroutine = null;
     }
 
@@ -356,8 +371,8 @@ public class PlayerController : MonoBehaviour
     {
         while (true)
         {
-            Jump(force);
-            yield return null;
+            rb.AddForce(transform.up * force, ForceMode2D.Force);
+            yield return new WaitForFixedUpdate();
         }
     }
 }

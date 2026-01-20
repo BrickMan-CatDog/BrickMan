@@ -77,7 +77,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   m_Size: {x: 0.9, y: 0.05}
-  m_EdgeRadius: 0
+  m_EdgeRadius: 0.02
 --- !u!1 &6217605777061047946
 GameObject:
   m_ObjectHideFlags: 0
@@ -186,6 +186,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f4d80a13109a1042928cb53640fe3ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
+  leviatingLockTime: 0.15
   movement: {x: 0, y: 0, z: 0}
   rotatemovement: {x: 0, y: 0, z: 0}
   groundlayer:

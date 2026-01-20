@@ -9,8 +9,16 @@ public class InputHandler : MonoBehaviour
     PlayerController playercontroller; //플레이어와 연결용 변수
 
     //move 입력받고 Flip상태가 아닐때만 값 넘겨주기
-    public void OnMove(InputAction.CallbackContext context) { 
-        if(playercontroller.currentstate != PlayerController.PlayerState.Flip) {
+    public void OnMove(InputAction.CallbackContext context)
+    {
+        if (playercontroller.currentstate == PlayerController.PlayerState.OnHook)
+        {
+            playercontroller.hookedHook.movement = context.ReadValue<Vector3>();
+            return;
+        }
+
+        if (playercontroller.currentstate != PlayerController.PlayerState.Flip)
+        {
             Debug.Log("move to" + context.ReadValue<Vector3>());
             playercontroller.movement = context.ReadValue<Vector3>();
         }
@@ -18,19 +26,32 @@ public class InputHandler : MonoBehaviour
     }
 
     //jump 입력받고 땅에 닿았을 때만 jump 실행
-    public void OnJump(InputAction.CallbackContext context) { 
-        if (context.performed) {
-            if(playercontroller.isGround) {
+    public void OnJump(InputAction.CallbackContext context)
+    { 
+        if (context.performed)
+        {
+            if (playercontroller.currentstate == PlayerController.PlayerState.OnHook)
+            {
+                playercontroller.hookedHook.GetOffHook();
+                return;
+            }
+
+            if (playercontroller.isGround)
+            {
                 Debug.Log("Jump");
                 playercontroller.Jump(playercontroller.power);
             }
         }
     }
     //Flip 입력받기
-    public void OnFlip(InputAction.CallbackContext context) {
+    public void OnFlip(InputAction.CallbackContext context)
+    {
         //flip 입력 받기 전에 Leviating 상태인지 확인
-        if(playercontroller.currentstate == PlayerController.PlayerState.Leviating) {
-            if(context.performed) {    
+        if (playercontroller.currentstate == PlayerController.PlayerState.Leviating
+            && playercontroller.currentstate != PlayerController.PlayerState.OnHook)
+        {
+            if (context.performed)
+            {
                 playercontroller.Flip();
             }
         }

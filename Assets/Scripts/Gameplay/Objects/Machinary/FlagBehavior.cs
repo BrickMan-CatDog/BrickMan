@@ -1,11 +1,12 @@
-using System.Collections;
+using UnityEditor.UI;
+using UnityEngine;
 using static Constants;
 using Unity.Cinemachine;
 using UnityEngine;
 
 public class FlagBehavior : MonoBehaviour
 {
-    Collider2D flagCollider;
+    private Collider2D flagCollider;
 
     public GameObject flag_enablePrefab;
 
@@ -14,7 +15,7 @@ public class FlagBehavior : MonoBehaviour
     {
         flagCollider = gameObject.GetComponent<Collider2D>();
     }
-
+    
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag(PLAYER_TAG))

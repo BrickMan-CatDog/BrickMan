@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 7958843417783261949}
   - component: {fileID: 4204712109881605311}
   - component: {fileID: 1850725430677242755}
-  - component: {fileID: 1140586371326169425}
   m_Layer: 0
   m_Name: PlayerBox
   m_TagString: Player
@@ -84,7 +83,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -5
+  m_SortingOrder: 3
   m_MaskInteraction: 0
   m_Sprite: {fileID: 5443222087807151164, guid: eaa54aa533456634f991727aa2fecc30, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -108,6 +107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f4d80a13109a1042928cb53640fe3ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
+  leviatingLockTime: 0.15
   movement: {x: 0, y: 0, z: 0}
   rotatemovement: {x: 0, y: 0, z: 0}
   groundlayer:
@@ -119,7 +119,9 @@ MonoBehaviour:
   maxSpeed: 3
   power: 5
   rotateSpeed: 100
+  jumpMultiplier: 1
   isGround: 1
+  hookedHook: {fileID: 0}
 --- !u!61 &7958843417783261949
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -215,15 +217,3 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1140586371326169425
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8084767263427825134}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7ef8a91896ae5246b3b061838fa318c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimator

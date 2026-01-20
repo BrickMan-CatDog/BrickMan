@@ -158,6 +158,8 @@ public class PlayerController : MonoBehaviour
     //move 함수
     private void Move()
     {
+        
+       
         float moveInput = movement.x;
         if (!isGround)
         { ChangeState(PlayerState.Leviating); }
@@ -175,16 +177,17 @@ public class PlayerController : MonoBehaviour
         {
             rb.AddForce(new Vector2(moveInput * moveForce, 0f), ForceMode2D.Force);
             ChangeState(PlayerState.Move);
-            if (Mathf.Abs(moveInput) > 0)
-            {
-                rb.AddForce(new Vector2(moveInput * moveForce, 0f), ForceMode2D.Force);
-                ChangeState(PlayerState.Move);
+            //01.20 정수민 코드 중복으로 추정되어 수정
+            // if (Mathf.Abs(moveInput) > 0)
+            // {
+            //     rb.AddForce(new Vector2(moveInput * moveForce, 0f), ForceMode2D.Force);
+            //     ChangeState(PlayerState.Move);
 
-                // if (CanChangeFromLeviating())
-                // {
-                //     ChangeState(PlayerState.Move);
-                // }
-            }
+            //     // if (CanChangeFromLeviating())
+            //     // {
+            //     //     ChangeState(PlayerState.Move);
+            //     // }
+            // }
         }
         else if (Mathf.Abs(moveInput) == 0)
         {

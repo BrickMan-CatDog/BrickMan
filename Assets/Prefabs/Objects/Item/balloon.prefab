@@ -83,7 +83,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 3499272959063439820, guid: f7c8009712ab97942b389ba9a04a8c55, type: 3}
+  m_Sprite: {fileID: 1732849332714495083, guid: cbb40b3c35882244790baaf0ccb9da30, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -144,3 +144,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BalloonBehavior
   availableTime: 1.5
   power: 12
+  slowRate: 5

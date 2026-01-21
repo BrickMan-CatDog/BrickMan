@@ -152,6 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f3dfd867088b2f40a42f6becaaba71c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FlagBehavior
+  flag_enablePrefab: {fileID: 3911606080654253929, guid: 1d5bfa2d907476d4d8ec6f6dfee70daf, type: 3}
 --- !u!95 &918318931175135021
 Animator:
   serializedVersion: 7

@@ -16,4 +16,10 @@ public class MainMenuSceneChange : BaseSceneChanger
     {
         GameManager.Instance.QuitGame();
     }
+
+    // ㅈㅅ한데 여기 사운드 좀 넣을게요. - 유민성
+    public void PlaySFXForButton()
+    {
+        SoundManager.Instance.PlaySFX("Modern16");
+    }
 }

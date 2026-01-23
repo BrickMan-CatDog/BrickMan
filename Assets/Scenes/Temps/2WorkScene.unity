@@ -10002,6 +10002,7 @@ MonoBehaviour:
   playUI: {fileID: 473701154}
   pauseUI: {fileID: 498009126}
   clearUI: {fileID: 45529405}
+  starText: {fileID: 1990410023}
 --- !u!4 &1490329377
 Transform:
   m_ObjectHideFlags: 0

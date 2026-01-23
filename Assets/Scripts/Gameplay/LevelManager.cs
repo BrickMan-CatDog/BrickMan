@@ -4,6 +4,8 @@ using static Constants;
 using Unity.Cinemachine;
 using Unity.VectorGraphics;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using TMPro;
 
 /// <summary>
 /// 레벨의 상태(준비, 진행 중, 완료, 실패) 관리
@@ -27,6 +29,7 @@ public class LevelManager : Singleton<LevelManager>
     public GameObject playUI;
     public GameObject pauseUI;
     public GameObject clearUI;
+    public TMP_Text starText;       //별 점수 텍스트
 
     private PlayerController playerController;  // 현재 플레이어 컨트롤러 참조
     private Vector3 spawnPosition;
@@ -44,6 +47,8 @@ public class LevelManager : Singleton<LevelManager>
         RequestRespawn();
 
         collectedStars = 0;
+        SetScore(collectedStars, requiredStars);    //별 점수 텍스트 갱신
+
         currentLevelState = LevelState.Play;
         Debug.Log(currentLevelState);
         
@@ -135,6 +140,8 @@ public class LevelManager : Singleton<LevelManager>
         Debug.Log($"Stars Collected: {collectedStars}/{requiredStars}");
 
         collectedStars++;
+        SetScore(collectedStars, requiredStars);    //별 점수 텍스트 갱신
+
         if (collectedStars >= requiredStars) {
             Debug.Log("Level Complete!");
 
@@ -158,6 +165,14 @@ public class LevelManager : Singleton<LevelManager>
 
         //씬 초기화
         SceneManager.LoadScene(lvlSceneName);
+    }
+
+    /// <summary>
+    /// 별 점수 텍스트 표시
+    /// </summary>
+    public void SetScore(int _collectedStars, int _requiredStars)
+    {
+        starText.text = _collectedStars.ToString() + " / " + _requiredStars.ToString();
     }
 
     // 추가적인 게임 관리 기능들

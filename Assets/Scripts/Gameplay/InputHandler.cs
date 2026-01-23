@@ -11,6 +11,9 @@ public class InputHandler : MonoBehaviour
     //move 입력받고 Flip상태가 아닐때만 값 넘겨주기
     public void OnMove(InputAction.CallbackContext context)
     {
+        //Play 상태가 아니면 input 받지 않음
+        if(LevelManager.Instance.currentLevelState != LevelManager.LevelState.Play) return;
+
         if (playercontroller.currentstate == PlayerController.PlayerState.OnHook)
         {
             playercontroller.hookedHook.movement = context.ReadValue<Vector3>();
@@ -28,6 +31,9 @@ public class InputHandler : MonoBehaviour
     //jump 입력받고 땅에 닿았을 때만 jump 실행
     public void OnJump(InputAction.CallbackContext context)
     { 
+        //Play 상태가 아니면 input 받지 않음
+        if(LevelManager.Instance.currentLevelState != LevelManager.LevelState.Play) return;
+
         if (context.performed)
         {
             if (playercontroller.currentstate == PlayerController.PlayerState.OnHook)
@@ -46,6 +52,9 @@ public class InputHandler : MonoBehaviour
     //Flip 입력받기
     public void OnFlip(InputAction.CallbackContext context)
     {
+        //Play 상태가 아니면 input 받지 않음
+        if(LevelManager.Instance.currentLevelState != LevelManager.LevelState.Play) return;
+
         //flip 입력 받기 전에 Leviating 상태인지 확인
         if (playercontroller.currentstate == PlayerController.PlayerState.Leviating
             && playercontroller.currentstate != PlayerController.PlayerState.OnHook)
@@ -58,7 +67,11 @@ public class InputHandler : MonoBehaviour
     }
 
     //Rotate 입력받기
-    public void OnRotate(InputAction.CallbackContext context) {
+    public void OnRotate(InputAction.CallbackContext context) 
+    {
+        //Play 상태가 아니면 input 받지 않음
+        if(LevelManager.Instance.currentLevelState != LevelManager.LevelState.Play) return;
+
         if(context.performed) {
             if(playercontroller.currentstate == PlayerController.PlayerState.Flip) {
                 Debug.Log("Rotate");
@@ -75,7 +88,11 @@ public class InputHandler : MonoBehaviour
     }
 
     //MakeBrick 입력받기
-    public void OnMakeBrick(InputAction.CallbackContext context) {
+    public void OnMakeBrick(InputAction.CallbackContext context) 
+    {
+        //Play 상태가 아니면 input 받지 않음
+        if(LevelManager.Instance.currentLevelState != LevelManager.LevelState.Play) return;
+
         if(context.performed) {
             //Flip 상태일 때만 MakeBrick 가능
             if(playercontroller.currentstate == PlayerController.PlayerState.Flip) {
@@ -103,7 +120,6 @@ public class InputHandler : MonoBehaviour
                 playercontroller = playerObj.GetComponent<PlayerController>();
             }
         }
-
     }
 
     //idle  땅 접지 - move, jump(spacebar)

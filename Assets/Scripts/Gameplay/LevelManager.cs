@@ -18,6 +18,10 @@ public class LevelManager : Singleton<LevelManager>
     public GameObject playerPrefab; // 프로젝트 창의 Player 프리팹 할당
     public Vector3 startPosition;
     public int requiredStars;
+    //UI들
+    public GameObject playUI;
+    public GameObject pauseUI;
+    public GameObject clearUI;
 
     private PlayerController playerController;  // 현재 플레이어 컨트롤러 참조
     private Vector3 spawnPosition;
@@ -82,9 +86,21 @@ public class LevelManager : Singleton<LevelManager>
     /// </summary>
     public void RequestPause()
     {
+        // 일시정지 UI 표시
+        UIManager.Instance.ShowUI(pauseUI);
         // 일시정지 처리
         currentLevelState = LevelState.Pause;
-        // 일시정지 UI 표시
+    }
+
+    /// <summary>
+    /// 레벨 일시정지 해제
+    /// </summary>
+    public void CancelPause()
+    {
+        // 일시정지 UI 숨김
+        UIManager.Instance.HideUI(pauseUI);
+        // play 처리
+        currentLevelState = LevelState.Play;
     }
 
     /// <summary>

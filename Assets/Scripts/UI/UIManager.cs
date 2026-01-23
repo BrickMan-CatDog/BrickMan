@@ -6,16 +6,25 @@ using UnityEngine;
 /// </summary>
 public class UIManager : Singleton<UIManager>
 {
-    
+    protected override bool DontDestroy => false; // 씬 전환 시 파괴됨
 
-    // 테스트용 샘플 메서드
-    public void ShowView(View view)
+/*
+    public Transform canvasTrm; //캔버스의 위치
+
+    void Awake()
     {
-        view.Show();
+        canvasTrm = GameObject.Find("Canvas").transform;
+    }
+*/
+
+//간단하게 만들긴 했는데 수정 필요하면 해야할듯
+    public void ShowUI(GameObject ui)
+    {
+        ui.SetActive(true);
     }
 
-    public void HideView(View view)
+    public void HideUI(GameObject ui)
     {
-        view.Hide();
+        ui.SetActive(false);
     }
 }

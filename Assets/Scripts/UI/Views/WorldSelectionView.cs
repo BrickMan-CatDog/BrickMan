@@ -7,15 +7,17 @@ using UnityEngine.UIElements;
 public class WorldSelectionView : MonoBehaviour, IDragHandler, IEndDragHandler
 {
     //월드 개수 상수
-    const int WORLD_COUNT = 4;
+    const int WORLD_COUNT = 1;
 
-    public ScrollRect scrollRect;
-    public RectTransform contentTrans;
-    public RectTransform slotTrans;
-    public HorizontalLayoutGroup hlg;
+    public ScrollRect scrollRect;               //WorldScrollView 넣기
+    public RectTransform contentTrans;          //Content 넣기
+    public RectTransform slotTrans;             //Worldslot 하나 넣기
+    public HorizontalLayoutGroup hlg;           //Content 넣기
 
     public float snapTime = 1f;
     float snapTimeBase = 0;
+
+    int slotCount = WORLD_COUNT + 1;    //slot 개수 = world 수 + comingsoon
 
     //현재 선택된 world 번호(0~)
     int worldNum = 0;
@@ -52,9 +54,10 @@ public class WorldSelectionView : MonoBehaviour, IDragHandler, IEndDragHandler
         scrollRect.velocity = Vector2.zero;
 
         //드래그한 위치에 따라 worldNum 계산
+        //(-위치.x / (slot 사이 길이 + slot 길이)) 반올림
         worldNum = Mathf.RoundToInt(-contentTrans.localPosition.x / (hlg.spacing + slotTrans.rect.width));
         if(worldNum < 0) worldNum = 0;
-        if(worldNum > WORLD_COUNT-1) worldNum = WORLD_COUNT-1;
+        if(worldNum > slotCount-1) worldNum = slotCount-1;
         //Debug.Log(worldNum);
     }
 

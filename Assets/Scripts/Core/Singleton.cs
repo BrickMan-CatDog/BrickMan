@@ -1,45 +1,59 @@
 using UnityEngine;
 
+public abstract class StaticInstance<T> : MonoBehaviour where T : MonoBehaviour
+{
+    public static T Instance { get; private set; }
+
+    protected virtual void Awake() => Instance = this as T;
+
+    protected virtual void OnApplicationQuit()
+    {
+        Instance = null;
+
+        Destroy(gameObject);
+    }
+}
+
 /// <summary>
 /// 싱글톤 패턴을 구현한 제네릭 클래스
 /// <para>게임 전체 전역 싱글톤</para>
 /// </summary>
 /// <typeparam name="T"></typeparam>
-public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
+public abstract class Singleton<T> : StaticInstance<T> where T : MonoBehaviour
 {
-    private static T _instance;
-    public static T Instance
+    protected override void Awake()
     {
-        get
+        if (Instance != null)
         {
-            if (_instance == null)
-            {
-                _instance = FindObjectOfType<T>();
-                if (_instance == null)
-                {
-                    GameObject obj = new GameObject(typeof(T).Name);
-                    _instance = obj.AddComponent<T>();
-                }
-            }
-            return _instance;
+            Destroy(gameObject);
+
+            return;
         }
+        base.Awake();
     }
+}
 
-    protected virtual bool DontDestroy => true;
-
-    protected virtual void Awake()
+/// <summary>
+/// Finally, we have the persistent version of the singleton. This will survive through scene loads.
+/// Perfect for system classes which require stateful, persistent data. Or audio sources where music
+/// plays through loading scenes, etc.
+/// </summary>
+public abstract class PersistentSingleton<T> : Singleton<T> where T : MonoBehaviour
+{
+    protected override void Awake()
     {
-        if (_instance == null)
-        {
-            _instance = this as T;
-            if (DontDestroy)
-            {
-                DontDestroyOnLoad(gameObject); // 씬이 바뀌어도 파괴되지 않음
-            }
-        }
-        else
-        {
-            Destroy(gameObject); // 중복 생성 방지
-        }
+        base.Awake();
+
+        // If this was a duplicate, base.Awake() scheduled it for destruction; skip further work.
+        if (Instance != this) return;
+
+        // Only apply DontDestroyOnLoad to root GameObjects. If not root, skip.
+        if (transform.parent != null) return;
+
+        // If already in the DontDestroyOnLoad scene (e.g., due to hot-reload), avoid double registration.
+        var currentScene = gameObject.scene;
+        if (currentScene.IsValid() && currentScene.name == "DontDestroyOnLoad") return;
+
+        DontDestroyOnLoad(gameObject);
     }
 }

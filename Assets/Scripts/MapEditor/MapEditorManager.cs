@@ -6,5 +6,5 @@ using UnityEngine;
 /// </summary>
 public class MapEditorManager : Singleton<MapEditorManager>
 {
-    protected override bool DontDestroy => false; // 씬 전환 시 파괴됨
+    //
 }

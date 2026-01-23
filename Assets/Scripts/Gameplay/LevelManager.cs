@@ -2,6 +2,10 @@ using UnityEngine;
 using System.Collections;
 using static Constants;
 using Unity.Cinemachine;
+using Unity.VectorGraphics;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using TMPro;
 
 /// <summary>
 /// 레벨의 상태(준비, 진행 중, 완료, 실패) 관리
@@ -17,15 +21,20 @@ public class LevelManager : Singleton<LevelManager>
     public GameObject playerPrefab; // 프로젝트 창의 Player 프리팹 할당
     public Vector3 startPosition;
     public int requiredStars;
+    public string lvlSceneName;     //현재 레벨 씬 이름
+
+    public LevelState currentLevelState { get; private set; } = LevelState.Ready; //현재 레벨 상태
+
     //UI들
     public GameObject playUI;
     public GameObject pauseUI;
     public GameObject clearUI;
+    public TMP_Text starText;       //별 점수 텍스트
 
     private PlayerController playerController;  // 현재 플레이어 컨트롤러 참조
     private Vector3 spawnPosition;
     private int collectedStars = 0;
-    private LevelState currentLevelState = LevelState.Ready;
+    
 
     /// <summary>
     /// 레벨 초기화
@@ -38,16 +47,23 @@ public class LevelManager : Singleton<LevelManager>
         RequestRespawn();
 
         collectedStars = 0;
-        currentLevelState = LevelState.Play;
+        SetScore(collectedStars, requiredStars);    //별 점수 텍스트 갱신
 
+        currentLevelState = LevelState.Play;
+        Debug.Log(currentLevelState);
+        
         // UI 초기화
     }
 
     /// <summary>
     /// 임시 테스트 용, 레벨 씬을 곧바로 실행하지 않는 환경에서는 쓰지 않음
     /// </summary>
-    void Awake()
+    protected override void Awake()
     {
+        base.Awake();  //01.23 정수민 오류 수정
+        // 만약 이 오브젝트가 중복이라서 부모에 의해 파괴될 예정이라면, 
+        // 아래의 초기화 로직을 실행하지 않고 즉시 중단
+        if (Instance != this) return;
         Init_Level();
     }
 
@@ -85,10 +101,12 @@ public class LevelManager : Singleton<LevelManager>
     /// </summary>
     public void RequestPause()
     {
-        // 일시정지 UI 표시
-        UIManager.Instance.ShowUI(pauseUI);
         // 일시정지 처리
         currentLevelState = LevelState.Pause;
+        // 일시정지 UI 표시
+        UIManager.Instance.ShowUI(pauseUI);
+        
+        Time.timeScale = 0f;    //게임 정지
     }
 
     /// <summary>
@@ -96,6 +114,8 @@ public class LevelManager : Singleton<LevelManager>
     /// </summary>
     public void CancelPause()
     {
+        Time.timeScale = 1f;    //게임 재개
+
         // 일시정지 UI 숨김
         UIManager.Instance.HideUI(pauseUI);
         // play 처리
@@ -120,14 +140,39 @@ public class LevelManager : Singleton<LevelManager>
         Debug.Log($"Stars Collected: {collectedStars}/{requiredStars}");
 
         collectedStars++;
+        SetScore(collectedStars, requiredStars);    //별 점수 텍스트 갱신
+
         if (collectedStars >= requiredStars) {
             Debug.Log("Level Complete!");
 
             // 레벨 완료 처리
             currentLevelState = LevelState.Clear;
+            //게임 정지
+            Time.timeScale = 0f;
             // 레벨 클리어 UI 표시
+            UIManager.Instance.ShowUI(clearUI);
+            
             // GameManager에 레벨 완료 기록
         }
+    }
+
+    /// <summary>
+    /// 레벨 재시작
+    /// </summary>
+    public void LevelRestart()
+    {
+        Time.timeScale = 1f;
+
+        //씬 초기화
+        SceneManager.LoadScene(lvlSceneName);
+    }
+
+    /// <summary>
+    /// 별 점수 텍스트 표시
+    /// </summary>
+    public void SetScore(int _collectedStars, int _requiredStars)
+    {
+        starText.text = _collectedStars.ToString() + " / " + _requiredStars.ToString();
     }
 
     // 추가적인 게임 관리 기능들

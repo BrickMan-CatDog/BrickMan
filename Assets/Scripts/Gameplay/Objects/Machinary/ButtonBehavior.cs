@@ -15,7 +15,9 @@ public class ButtonBehavior : MonoBehaviour
     {
         Debug.Log("버튼 누름");
 
-        if (collision.CompareTag("Player") && !isOn)
+        //01.23 정수민 조건 추가
+
+        if ((collision.CompareTag("Player") && !isOn) || (collision.CompareTag("CloneBox") && !isOn))
         {
             isOn = true;
             ButtonOn.SetActive(true);
@@ -26,7 +28,7 @@ public class ButtonBehavior : MonoBehaviour
                 door.Open();
             }
         }
-        else if (collision.CompareTag("Player") && isOn)
+        else if ((collision.CompareTag("Player") && isOn) || (collision.CompareTag("CloneBox") && isOn))
         {
             isOn = false;
             ButtonOn.SetActive(false);

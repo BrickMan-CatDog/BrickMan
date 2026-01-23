@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 4498743972036153304}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.9369155, y: -0.067492425, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 4204712109881605311}
   - component: {fileID: 1850725430677242755}
   - component: {fileID: -6173578424976692143}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: PlayerBox
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -212,7 +212,7 @@ BoxCollider2D:
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 90a998a999887264f94671f5dbb94336, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

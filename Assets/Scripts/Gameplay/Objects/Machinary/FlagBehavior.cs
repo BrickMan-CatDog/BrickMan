@@ -2,7 +2,7 @@ using UnityEditor.UI;
 using UnityEngine;
 using static Constants;
 using Unity.Cinemachine;
-using UnityEngine;
+
 
 public class FlagBehavior : MonoBehaviour
 {

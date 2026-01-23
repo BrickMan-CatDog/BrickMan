@@ -6,7 +6,7 @@ using UnityEngine;
 /// </summary>
 public class UIManager : Singleton<UIManager>
 {
-    protected override bool DontDestroy => false; // 씬 전환 시 파괴됨
+
 
 /*
     public Transform canvasTrm; //캔버스의 위치

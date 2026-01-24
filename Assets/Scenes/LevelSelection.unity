@@ -548,6 +548,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LvlSelectSceneChanger
   nextScenes:
   - WorldSelection
+  - TutorialScene
+  - stage2
+  - stage3
   transitionUI: {fileID: 1253843453}
   graphicRaycaster: {fileID: 1253843452}
 --- !u!4 &359990279
@@ -1216,7 +1219,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 876678503}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 359990278}
+        m_TargetAssemblyTypeName: LvlSelectSceneChanger, Assembly-CSharp
+        m_MethodName: OnClickedLvl
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &876678503
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1908,7 +1923,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1337713462}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 359990278}
+        m_TargetAssemblyTypeName: LvlSelectSceneChanger, Assembly-CSharp
+        m_MethodName: OnClickedLvl
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1337713462
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2521,7 +2548,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1658594152}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 359990278}
+        m_TargetAssemblyTypeName: LvlSelectSceneChanger, Assembly-CSharp
+        m_MethodName: OnClickedLvl
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1658594152
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1958,7 +1958,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 3012517174677023704, guid: da3f7ca12f00ab0488a202878faa8b4a, type: 3}
+  m_Sprite: {fileID: -3437072778594343283, guid: 7d1a3c11edb587f4089df54134570205, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2572,7 +2572,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -6506261708391799040, guid: ac0f975814dc73b4e89b5b164f43177d, type: 3}
+  m_Sprite: {fileID: -6842034395292259567, guid: 7d1a3c11edb587f4089df54134570205, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3429,7 +3429,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 3012517174677023704, guid: da3f7ca12f00ab0488a202878faa8b4a, type: 3}
+  m_Sprite: {fileID: -3437072778594343283, guid: 7d1a3c11edb587f4089df54134570205, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -9869,15 +9869,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.74509805, g: 0.6862745, b: 0.74509805, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 4236154095950909411, guid: 7d1a3c11edb587f4089df54134570205, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -10069,7 +10069,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 6696308465155897044, guid: 09f9ada2bda5d604c87b0afb9c1e056b, type: 3}
+  m_Sprite: {fileID: -1626991207080128202, guid: 7d1a3c11edb587f4089df54134570205, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -10431,7 +10431,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 6696308465155897044, guid: 09f9ada2bda5d604c87b0afb9c1e056b, type: 3}
+  m_Sprite: {fileID: -1626991207080128202, guid: 7d1a3c11edb587f4089df54134570205, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

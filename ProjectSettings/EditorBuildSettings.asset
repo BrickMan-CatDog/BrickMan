@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Temps/SampleScene.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
   - enabled: 1
@@ -17,6 +17,18 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LevelSelection.unity
     guid: b22c61815b826b845a103995d534bcd3
+  - enabled: 1
+    path: Assets/Scenes/Earth/stage2.unity
+    guid: 03a6fa87c5b55bc43b40d3a0f7ff5ad7
+  - enabled: 1
+    path: Assets/Scenes/Challenge/challengestage.unity
+    guid: 8cdafee7e25fb5f4d855bd262e7085ab
+  - enabled: 1
+    path: Assets/Scenes/Earth/TutorialScene.unity
+    guid: 86c1503be9da57f48a13ad729c6c177a
+  - enabled: 1
+    path: Assets/Scenes/Earth/stage3.unity
+    guid: 6047d2dc5d896f548a18ccfe08e61e2e
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

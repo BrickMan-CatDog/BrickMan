@@ -39,7 +39,7 @@ public class Parallax : MonoBehaviour
         transform.position = new Vector3(startPosX + distX, startPosY + distY, transform.position.z);
 
         // 무한 배경 루프 (배경이 화면 끝에 도달하면 위치 재설정)
-        if (temp > startPosX + length) startPosX += length; //위치 재설정
-        else if (temp < startPosX - length) startPosX -= length; //위치 재설정
+        if (temp > startPosX + length) startPosX += 2 * length; //위치 재설정
+        else if (temp < startPosX - length) startPosX -= 2 * length; //위치 재설정
     }
 }

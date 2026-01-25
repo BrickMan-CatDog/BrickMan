@@ -12,4 +12,10 @@ public class LvlSceneChanger : BaseSceneChanger
         //정지 풀기가 ChangeScene 안에 있음
         ChangeScene(nextScenes[1], 0.5f);
     }
+
+    //01.25 정수민 추가
+    public void OnClickedNext()
+    {
+        ChangeScene(nextScenes[0],0.5f);
+    }
 }

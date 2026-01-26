@@ -9,7 +9,7 @@ public class ButtonBehavior : MonoBehaviour
     public List<DoorBehavior> linkedDoors;
     [SerializeField] private GameObject ButtonOn;
     [SerializeField] private GameObject ButtonOff;
-    private bool isOn = false;
+    public bool isOn = false;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

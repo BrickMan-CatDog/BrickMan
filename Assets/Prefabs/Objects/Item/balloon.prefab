@@ -143,5 +143,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BalloonBehavior
   availableTime: 1.5
-  power: 12
+  power: 15
   slowRate: 5
